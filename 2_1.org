@@ -1,0 +1,43 @@
+#+TITLE: 快速指南
+
+* 工作流
+
+  本地仓库一般有三棵树组成。
+  分别是
+  1. 工作目录（实际文件）
+  2. 缓冲区（临时改动）
+  3. HEAD（指向最后一次提交的结果）
+
+* 命令速查
+
+   #+BEGIN_SRC shell
+     # 创建新仓库
+
+     git init
+
+     # 查看 git 状态
+
+     git status
+
+     # 添加与提交
+
+     git add <filename>
+     git commit -m "commit message"
+
+     # 推送改动(origin是一个自定义的remote指代名)
+
+     git remote add origin <server>
+     git push origin master
+
+
+   #+END_SRC
+
+* 实际命令
+
+  #+BEGIN_SRC shell
+    git init
+    git add 2_1.org
+    git commit -m "添加快速指南"
+    git remote add origin git@github.com:three1bro/git-recipes-practice.git
+    git push origin master
+  #+END_SRC
