@@ -1,0 +1,50 @@
+#+TITLE:创建代码仓库
+
+* 总结
+
+** 创建仓库
+
+  创建仓库一般有两种方式.
+  1. 从远端clone一个仓库
+  2. 在本地建立一个仓库
+
+
+*** 从远端clone一个仓库
+
+    #+BEGIN_SRC shell
+      # 值得一提的是，本机的其他的目录也可作为远程path
+      git clone path
+    #+END_SRC
+
+
+*** 在本地创建一个Git仓库
+
+    #+BEGIN_SRC shell
+      # 初始化当前目录
+      git init
+
+      # 创建并初始化目标目录
+      git init <dest>
+
+      # 创建一个裸的仓库，用于作为中心仓库
+      git init --bare project_name.git
+
+    #+END_SRC
+
+* 实际命令
+
+  #+BEGIN_SRC shell
+    # 分别创建一个普通仓库和一个bare仓库
+    git init noramlRepo
+    git init --bare bareRepo.git
+
+    # 分别克隆二者到新的仓库
+    git clone normalRepo normal
+    git clone bareRepo bare
+
+    # 在仓库内新建一个文件
+    touch newfile
+    git add newfile
+    git commit -m "test"
+    git push origin master
+  #+END_SRC
