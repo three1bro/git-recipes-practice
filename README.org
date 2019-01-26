@@ -1,4 +1,4 @@
-#+TITLE: Shayean Threo
+#+TITLE: README
 
 这是一个用于学习git的仓库，参考 [[https://github.com/geeeeeeeeek/git-recipes][git-recipes]] ,让每一次学习的指令可以有
 比较好的巩固。

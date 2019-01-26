@@ -1,0 +1,53 @@
+#+TITLE:保存你的更改
+
+
+通过 commit 来提交一个更改（也就是保存）
+通过 add 来对一个文件进行跟踪
+二者组成了一个基本的工作流
+
+此外还有 git stash 这样称作储存的特殊方式
+
+* 命令速查
+
+** 跟踪文件
+
+  #+BEGIN_SRC shell
+    # 将 file 文件的更改加入下次提交的缓存
+    git add <file>
+
+    # 跟踪目录
+    git add <directory>
+
+    # 交互式添加 y(yes), n(no), s(slice), e(edit), q(quit)
+
+    git add -i <dest>
+  #+END_SRC
+
+** 提交更改
+
+   #+BEGIN_SRC shell
+     # 基本 会打开一个文本编辑器
+     git commit
+
+     # 附带提交信息
+     git commit -m "<message>"
+
+     # 提交所有跟踪过的文件的变化
+     git commit -a
+   #+END_SRC
+
+** 提交信息格式
+
+   #+BEGIN_SRC text
+     Change the message displayed by hello.py(首行对提交的简述， 后空一行)
+
+     - Update the sayHello() function to output the user's name(详述)
+     - Change the sayGoodbye() function to a friendlier message(详述)
+   #+END_SRC
+
+* 实际命令
+
+  #+BEGIN_SRC shell
+    git add 2_3.org
+    git commit
+  #+END_SRC
