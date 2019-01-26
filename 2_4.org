@@ -1,0 +1,72 @@
+#+TITLE:检查仓库状态
+
+* 讨论
+
+** git status
+
+   使用 git status 查看当前工作区域和缓存区的关联。
+   还包括了一些命令
+
+** 忽略文件
+
+   在工程下添加 .gitignore 文件来忽视某些文件
+
+   #+BEGIN_SRC text
+     ,*.pyc
+     ,*.obj
+     ,*.exe
+   #+END_SRC
+
+** git log
+
+   查看项目历史的基本工具
+   每一个 commit 使用一个 40位的字符串来来辨识。
+   有两个作用
+   1. 保证提交的正确性
+   2. 用力辨识每一次提交
+
+
+* 命令速查
+
+  #+BEGIN_SRC shell
+    # 查看当前进展
+    git status
+
+    # 显示日志
+    git log
+
+    # 使用<limit>限制查看的条数
+    git log -n <limit>
+
+    # 将每个提交压缩到一行
+    git log --oneline
+    # 附带变更信息
+    git log --stat
+
+    # 附带每个提交的差异 最详细
+    git log -p
+
+    # 显示指定作者的提交 支持rgx
+    git log --author="<pattern>"
+
+    # 搜索指定提交
+    git log --grep="<pattern>"
+
+    # 只显示发生在 <since> 和 <until> 之间的提交。ID、分支名、HEAD 或是任何一种引用。
+    git log <since> <until>
+
+    # 特定文件的提交记录
+    git log <file>
+
+    # --graph 标记会绘制一幅字符组成的图形，左边是提交，右边是提交信息。--decorate 标记会加上提交所在的分支名称和标签。--oneline 标记将提交信息显示在同一行，一目了然。
+    git log --graph --oneline -- decorate
+  #+END_SRC
+
+* 实际命令
+
+  #+BEGIN_SRC shell
+    git add 2_4.org
+    git commit
+
+    # 自己穿插 git status ， 同时自己使用 git log 的相关命令
+  #+END_SRC
