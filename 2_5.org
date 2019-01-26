@@ -1,0 +1,54 @@
+#+TITLE: 检出作业
+
+* 讨论
+
+  git checkout 有三个作用
+
+  1. 切换或者新建分支
+  2. 将暂存区或者指定commit的内容覆盖到工作区
+
+
+* 命令速查
+
+  #+BEGIN_SRC shell
+    # 查看当前分支
+    git branch
+
+    # 切换指定分支
+    git checkout <branchName>
+
+    # 新建并且切换到指定分支
+    git checkout -b <newBranchName>
+
+    # 用暂存区的内容覆盖工作区的内容，使用来指定后缀为文件而非分支
+    git checkout [--] <filename>
+
+    # 用指定提交的某个文件内容覆盖当前内容
+    git checkout <commitId> [--] <fileName>
+
+    # 用指定分支的某个文件内容覆盖当前内容
+    git checkout <branchName> [--] <fileName>
+  #+END_SRC
+
+* 实际命令
+
+  #+BEGIN_SRC shell
+    # 提交本次更改
+    git add <thisfile>
+
+    # 修改当前内容
+    随意修改当前文件
+
+    # 检出当前文件
+    git checkout -- 2_5.org
+
+    # 提交
+    git commit
+
+    # 再次修改内容
+    再次修改内容
+
+    # 使用上次提交的内容检出文件
+    git checkout <commitId> -- 2_5.org
+
+  #+END_SRC
