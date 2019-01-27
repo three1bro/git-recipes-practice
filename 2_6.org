@@ -1,0 +1,104 @@
+#+TITLE:回滚错误的修改
+
+* 讨论
+
+** 回滚
+
+  有三种方法可以回滚错误的修改
+
+  1. git checkout
+  2. git revert
+  3. git reset
+
+
+  三种方式有不同的用处
+
+*** git checkout
+
+   在上一篇中讲述，用指定的暂存区的内容去覆盖目标内容
+
+*** git revert
+
+   对某一个commit使用， 用来软性取消掉这个版本的内容。注意，采用新增一
+   个commit来抵消这个commit所产生的影响。由于这个特性，这种撤销可以被
+   撤销。同时意味着更加安全。
+
+*** git reset
+
+   把指定 commit 的记录直接清除。
+   和 revert 相反。属于比较危险的撤销，无法被撤销。
+
+** 清除无关文件
+
+   此外，可以使用 git clean 来清理某些不被跟踪的文件。这只是一个快捷方
+   式，与手动的 rm 没有区别
+* 命令速查
+
+  #+BEGIN_SRC shell
+    # 撤销某一个提交的内容 （HEAD指定最进一次提交）
+    git revert HEAD
+
+    # 从缓存区移除特定的文件 ， 即 add 的反向操作
+    git reset <file>
+
+    # 从缓存区移除所有待定文件
+    git reset
+
+    # 使用hard参数来影响工作目录
+    git reset --hard
+
+    # 将缓存区重设到这个<commit>，不改变工作目录(记录都会消失,用于合并后面的分支)
+    git reset <commit>
+
+    # 将缓存区和工作目录都重设到这个提交，改变工作目录
+    git reset --hard <commit>
+
+    # 预览需要清理的文件
+    git clean -n
+
+    # 删除不被跟踪的文件
+    git clean -f
+
+    # 删除指定目录下的非项目文件
+    git clean -f <path>
+
+    # 同时指定某些文件夹
+    git clean -d
+
+    # 指定 ignore 中指定忽略的文件
+    git clean -x
+  #+END_SRC
+* 实际命令
+
+  #+BEGIN_SRC shell
+    # 先提交本章节 (在运行命令后可以使用status来查看变化)
+    git add <thisfile>
+    git commit -m "message"
+
+    # 测试 chekcout
+    echo "checkout test" >> <thisfile>
+    git checkout -- <thisfile>
+
+    # 测试 reset 对缓存区的影响
+    echo "reset test" >> <thisfile>
+    git add <thisfile>
+    git reset <thisfile>
+
+    # 测试 revert 和 reset 对 commit 的影响
+    echo "revert and reset unit test" >> <thisfile>
+    git add <thisfile>
+    git commit -m "revert and reset unit commit"
+    git revert HEAD [or commitID]
+    git reset --hard HEAD~2
+
+    # 测试 clean
+    echo "new file" >> newfile
+    mkdir newfiles
+    echo "newfiles1" >> newfiles/newfiles1
+    echo "newfiles2" >> newfiles/newfiles2
+
+    git clean -n
+    git clean -nd
+    git clean -df
+
+  #+END_SRC
