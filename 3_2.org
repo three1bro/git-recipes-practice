@@ -1,0 +1,103 @@
+#+TITLE:保持代码同步
+
+
+* 如何
+
+  本节介绍保持代码同步的工作流
+
+  1. git remote
+  2. git fetch
+  3. git pull
+  4. git push
+
+
+** remote
+
+   使用 remote 来指定本定仓库与远程仓库的关系。
+
+   使用 git clone 时， 自动创建了一个 origin 的远程链接。故 origin 初
+   见约定俗成。
+
+
+** fetch
+
+   将提交从远程仓库倒入到本地仓库。拉去下来的是远程分支， 而不是我们一
+   直使用的普通本地分支。在人工检查，确认分支后，使用 merge 手动合并该
+   远程分支。
+
+
+** pull
+
+   快速的 fetch 和 merge 。(事实上，采用 rebase 的 pull 更加普遍)
+
+
+** push
+
+   将指定内容推送到 <remote> 上。
+
+
+* 命令速查
+
+  #+BEGIN_SRC shell
+    #-------- remote part --------
+    # 列出你和其他仓库之间的远程链接 [-v 显示每个链接的URL]
+    git remote [-v]
+
+    # 添加一个新的远程仓库链接， 指定别名 <name>
+    git remote add <name> <url>
+
+    # 移除指定别名 <name> 的远程仓库
+    git remote rm <name>
+
+    # 重命名指定的远程链接
+    git remote rename <old-name> <new-name>
+
+    #-------- fetch part --------
+    # 取下仓库内的所有分支以及内容
+    git fetch <remote>
+
+    # 取下仓库内的指定分支
+    git fetch <remote> <branch>
+
+    # 只显示远程分支
+    git branch -r
+
+    #-------- pull part --------
+    # 使用 pull 拉取当前分支对应的更改，并立即并入本地副本。
+    git pull <remote> # 等同于git getch & git merge origin/.
+
+    # 使用 rebase 参数替代 merge 合并
+    git pull --rebase <remote>
+
+    #-------- push part  --------
+    # 推送指定分支的变化到远程 非快速合并无法提交
+    git push <remote> <branch>
+
+    # 强制提交
+    git push <remote> --force
+
+    # 推送所有的本地分支到远程
+    git push <remote> --all
+
+    # 推送是附带 tags 星系
+    git push <remote> --tags
+  #+END_SRC
+
+* 练习
+
+  #+BEGIN_SRC shell
+    # 在 github 上修改。添加一个提交
+    # 拉取远程所有的分支
+    git fetch origin
+
+    # 查看拉取下的所有的远程分支
+    git branch -r
+
+    # 使用log ， checkout 等工具人工查看远程分支（origin/<branchname>）
+    git log --oneline origin/master
+    git checkout origin/master
+
+    # 切回 master 分支并且合并
+    git checkout master
+    git merge origin/master
+  #+END_SRC
