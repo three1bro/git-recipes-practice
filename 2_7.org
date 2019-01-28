@@ -1,0 +1,83 @@
+#+TITLE:重写项目历史
+
+* 如何
+
+  本节主要介绍
+
+  1. git commit 的 amend 参数
+  2. git rebase
+  3. git reflog
+
+
+** amend 参数
+
+   使用 amend 参数将缓存区里的内容与上一次提交的内容合并。
+
+   注意： 相当于产生一个新的 commit， 并且删除原有的提交
+
+** rebase
+
+   改变当前分支的起点
+
+** reflog
+
+   包含所有当前HEAD引用变更记录,reset 后的最后一道安全锁
+
+* 命令速查
+
+  #+BEGIN_SRC shell
+    # 提交缓存区的内容并检出上次提交信息. no-edit 参数告知不检出提交信息
+    git commit --amend [--no-edit]
+
+    # 将当前分支重基到 <base> 下。base 可以是任何类型的提交引用
+    git rebase <base>
+
+    # 加强型变变基, 交互式
+    git rebase -i
+
+    # 新建一个新的分支, 并以 start-point 为起点
+    git checkout -b <newbranch> [<start-point>]
+
+    # 删除一个分支
+    git branch -d <deletebranch>
+
+    # 显示本地仓库的引用日志
+    git reflog
+
+    # 用相对日期显示引用日志
+    git reflog --relative-date
+  #+END_SRC
+
+* 例子
+
+  #+BEGIN_SRC shell
+    # 编辑 hello.py 和 main.py
+    git add hello.py
+    git commit
+
+    # 意识到你忘记添加 main.py 的更改 注意版本号依旧会有变化，表示不是相同的提交
+    git add main.py
+    git commit --amend --no-edit
+
+    # ------重基测试---------
+    # 开始新的功能分支
+    git checkout -b new-feature master
+    # 编辑文件
+    git commit -a -m "Start developing a feature"
+    # 基于master分支创建一个快速修复分支
+    git checkout -b hotfix master
+    # 编辑文件
+    git commit -a -m "Fix security hole"
+    # 合并回master
+    git checkout master
+    git merge hotfix
+    git branch -d hotfix
+
+    # 回到new-feature分支变基并继续开发
+    git checkout new-feature
+    git rebase master
+
+    # 合并 master 分支，从而得到一个完整的，线性的提交
+    git chekcout master
+    git merge new-feature
+  #+END_SRC
