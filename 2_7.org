@@ -48,7 +48,7 @@
     git reflog --relative-date
   #+END_SRC
 
-* 例子
+* 练习
 
   #+BEGIN_SRC shell
     # 编辑 hello.py 和 main.py
