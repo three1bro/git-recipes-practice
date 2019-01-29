@@ -96,7 +96,7 @@
 
      # 编辑文件
      git add <file>
-     git commit -m "在master上添加了一些极其稳定的功能"
+     git commit -m "这里是冲突"
 
      # 合并new-feature分支
      git merge new-feature
