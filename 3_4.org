@@ -1,0 +1,104 @@
+#+TITLE:使用分支
+
+* 如何
+
+  本章介绍 branch 相关操作。
+
+  1. branch
+  2. checkout
+  3. merge
+
+
+** 分支
+
+   git 采用 branch 作为分支系列的命令。
+
+   分支代表了一条独立的开发流水线。可以视为申请一棵新的树（工作区，缓存区，提交区）。
+
+   无论是修复一个 bug 还是开发一个新的功能， 都应该开一个新的分支，在
+   开发完成后合并进 master 分支。
+
+   分支代表了一系列提交的顶端。换句话说，分支不是提交的容器，而是提交
+   的指针。
+
+** checkout
+
+   checkout 不仅用来检出文件。同时可以同来切换分支。
+
+   HEAD 是指向当前快照的引用。checkout 命令内部只是更新 HEAD，指向特定
+   的分支或者提交。当 HEAD 指向上游提交时， 会进入 [分离HEAD] 状态。这
+   个状态类似于只读态。
+
+** merge
+
+   采用 git merge 来合并分支。Git 会决定使用哪种合并算法
+
+*** 合并算法
+
+    对于不同的分支情况， 有着不同的合并算法
+
+**** 快速向前合并
+
+     线性分支， 快捷的改变分支的顶端就可以
+
+**** 三路合并
+
+     形成一个新的提交作为二者的下游。 可能产生冲突， 需要手动修改。
+
+** 命令速查
+
+   #+BEGIN_SRC shell
+     # 创建一个名为<name>的分支
+     git branch <name>
+
+     # 使用 d 参数删除分支，在删除未合并分支时 d 会抛出警告，需要使用 D 参数
+     git branch -d[-D] <branch>
+
+     # 总是生成一个合并提交（即使是快速向前合并）。
+     git merge --no-ff <branch>
+   #+END_SRC
+
+** 练习
+
+   #+BEGIN_SRC shell
+     # --------快速向前合并--------
+     # 开始新功能
+     git checkout -b new-feature master
+
+     # 编辑文件
+     git add <file>
+     git commit -m "开始新功能"
+
+     # 编辑文件
+     git add <file>
+     git commit -m "完成功能"
+
+     # 合并new-feature分支
+     git checkout master
+     git merge new-feature
+     git branch -d new-feature
+
+     # --------三路合并--------
+     # 新建冲突文件
+     # 开始新功能
+     git checkout -b new-feature master
+
+     # 编辑文件
+     git add <file>
+     git commit -m "开始新功能"
+
+     # 编辑文件
+     git add <file>
+     git commit -m "完成功能"
+
+     # 在master分支上开发
+     git checkout master
+
+     # 编辑文件
+     git add <file>
+     git commit -m "在master上添加了一些极其稳定的功能"
+
+     # 合并new-feature分支
+     git merge new-feature
+     git branch -d new-feature
+   #+END_SRC
