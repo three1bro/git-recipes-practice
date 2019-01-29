@@ -79,24 +79,19 @@
      git branch -d new-feature
 
      # --------三路合并--------
-     # 新建冲突文件
      # 开始新功能
      git checkout -b new-feature master
 
      # 编辑文件
      git add <file>
-     git commit -m "开始新功能"
+     git commit -m "在新分支中修改冲突文件"
 
-     # 编辑文件
-     git add <file>
-     git commit -m "完成功能"
-
-     # 在master分支上开发
+     # 在master分支上修改， 使得冲突发生
      git checkout master
 
      # 编辑文件
      git add <file>
-     git commit -m "在master上添加了一些极其稳定的功能"
+     git commit -m "在master上修改冲突文件"
 
      # 合并new-feature分支
      git merge new-feature
